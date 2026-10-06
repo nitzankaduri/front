@@ -10,3 +10,8 @@
 **19:42 · antigravity**
 
 > פיתוח פרויקט גמר: אפליקציית Master-Detail של פורמולה 1 (F1 Grand Prix & Constructors Hub) ב-React + Vite. ביצוע משימה 1: הגדרת PRD.md, עדכון tasks.md עם 8 משימות סדורות ותנאי הצלחה, ובדיקת זמינות ה-API הפתוח של Jolpica F1.
+
+**20:01 · antigravity**
+
+> ביצוע משימה 2: יצירת שכבת שירות ה-API (src/services/f1Api.js) לשליפת קבוצות, נהגים ודירוג עונה מ-Jolpica F1 API עם טיפול מלא בשגיאות ואימות מודל הנתונים.
+
