@@ -118,7 +118,11 @@ export default function App() {
 
   return (
     <div className="f1-app">
-      <Header favoritesCount={favorites.length} />
+      <Header
+        favoritesCount={favorites.length}
+        showFavoritesOnly={showFavoritesOnly}
+        onToggleFavoritesFilter={() => setShowFavoritesOnly((prev) => !prev)}
+      />
 
       <main className="f1-main-content">
         {isLoading && <LoadingSpinner message="Loading Formula 1 constructors..." />}

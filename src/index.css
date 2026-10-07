@@ -142,6 +142,26 @@ body {
   color: var(--f1-gold);
 }
 
+.header-badge.favorites-badge.interactive-badge {
+  cursor: pointer;
+  font-family: inherit;
+  transition: all var(--transition-fast);
+}
+
+.header-badge.favorites-badge.interactive-badge:hover {
+  background: rgba(255, 184, 0, 0.2);
+  border-color: var(--f1-gold);
+  transform: translateY(-1px);
+}
+
+.header-badge.favorites-badge.interactive-badge.active {
+  background: var(--f1-gold);
+  color: #000000;
+  border-color: var(--f1-gold);
+  box-shadow: 0 0 12px var(--f1-gold-glow);
+}
+
+
 .pulse-indicator {
   width: 8px;
   height: 8px;

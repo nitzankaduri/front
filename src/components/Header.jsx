@@ -1,9 +1,13 @@
 /**
  * Header Component
  * Top navigation bar featuring Formula 1 branding, season subtitle,
- * and quick favorites indicator counter.
+ * and quick favorites indicator counter with filter click interaction.
  */
-export default function Header({ favoritesCount = 0 }) {
+export default function Header({
+  favoritesCount = 0,
+  showFavoritesOnly = false,
+  onToggleFavoritesFilter,
+}) {
   return (
     <header className="f1-header">
       <div className="header-container">
@@ -24,13 +28,20 @@ export default function Header({ favoritesCount = 0 }) {
             <span>FIA Formula 1 World Championship</span>
           </div>
           {favoritesCount > 0 && (
-            <div className="header-badge favorites-badge" title="Saved favorite teams">
+            <button
+              type="button"
+              className={`header-badge favorites-badge interactive-badge ${showFavoritesOnly ? 'active' : ''}`}
+              onClick={onToggleFavoritesFilter}
+              title={showFavoritesOnly ? 'Show all constructors' : 'Filter by favorites'}
+              aria-pressed={showFavoritesOnly}
+            >
               <span className="star-icon">★</span>
               <span>{favoritesCount} {favoritesCount === 1 ? 'Favorite' : 'Favorites'}</span>
-            </div>
+            </button>
           )}
         </div>
       </div>
     </header>
   );
 }
+
