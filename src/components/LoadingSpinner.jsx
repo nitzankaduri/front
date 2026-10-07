@@ -1,11 +1,6 @@
-/**
- * LoadingSpinner Component
- * Displays an animated high-performance racing telemetry spinner
- * while fetching data from the Jolpica F1 API.
- */
-export default function LoadingSpinner({ message = 'Loading Formula 1 constructor telemetry...' }) {
+export default function LoadingSpinner({ message = 'Loading data...' }) {
   return (
-    <div className="state-container loading-container" role="status" aria-live="polite">
+    <div className="state-container loading-container">
       <div className="tachometer-spinner">
         <div className="spinner-outer-ring"></div>
         <div className="spinner-inner-disc">
@@ -13,7 +8,7 @@ export default function LoadingSpinner({ message = 'Loading Formula 1 constructo
         </div>
       </div>
       <p className="loading-message">{message}</p>
-      <span className="loading-subtext">Connecting to Jolpica Ergast API...</span>
+      <p className="loading-subtext">Connecting to Jolpica F1 API telemetry feed...</p>
     </div>
   );
 }
