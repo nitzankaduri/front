@@ -3,6 +3,7 @@ import Header from './components/Header';
 import LoadingSpinner from './components/LoadingSpinner';
 import ErrorMessage from './components/ErrorMessage';
 import ConstructorList from './components/ConstructorList';
+import ConstructorDetail from './components/ConstructorDetail';
 import { fetchConstructors } from './services/f1Api';
 
 export default function App() {
@@ -53,7 +54,13 @@ export default function App() {
     let ignore = false;
     fetchConstructors(45)
       .then((data) => {
-        if (!ignore) setConstructors(data);
+        if (!ignore) {
+          setConstructors(data);
+          // Set first constructor as default selection on desktop
+          if (data && data.length > 0 && window.innerWidth >= 1024) {
+            setSelectedConstructor(data[0]);
+          }
+        }
       })
       .catch((err) => {
         if (!ignore) setError(err instanceof Error ? err : new Error('Network or API failure'));
@@ -85,17 +92,33 @@ export default function App() {
               <span>Loaded {constructors.length} Formula 1 Constructors from Jolpica API</span>
             </div>
 
-            <ConstructorList
-              constructors={constructors}
-              selectedConstructor={selectedConstructor}
-              onSelectConstructor={setSelectedConstructor}
-              favorites={favorites}
-              onToggleFavorite={handleToggleFavorite}
-            />
+            <div className={`master-detail-layout ${selectedConstructor ? 'has-detail' : ''}`}>
+              <div className="master-column">
+                <ConstructorList
+                  constructors={constructors}
+                  selectedConstructor={selectedConstructor}
+                  onSelectConstructor={setSelectedConstructor}
+                  favorites={favorites}
+                  onToggleFavorite={handleToggleFavorite}
+                />
+              </div>
+
+              {selectedConstructor && (
+                <div className="detail-column">
+                  <ConstructorDetail
+                    constructorItem={selectedConstructor}
+                    onClose={() => setSelectedConstructor(null)}
+                    isFavorite={favorites.includes(selectedConstructor.constructorId)}
+                    onToggleFavorite={handleToggleFavorite}
+                  />
+                </div>
+              )}
+            </div>
           </section>
         )}
       </main>
     </div>
   );
 }
+
 
