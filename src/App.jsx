@@ -2,13 +2,15 @@ import { useState, useEffect } from 'react';
 import Header from './components/Header';
 import LoadingSpinner from './components/LoadingSpinner';
 import ErrorMessage from './components/ErrorMessage';
+import ConstructorList from './components/ConstructorList';
 import { fetchConstructors } from './services/f1Api';
 
 export default function App() {
   const [constructors, setConstructors] = useState([]);
+  const [selectedConstructor, setSelectedConstructor] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [favorites] = useState(() => {
+  const [favorites, setFavorites] = useState(() => {
     try {
       const saved = localStorage.getItem('f1_favorite_constructors');
       return saved ? JSON.parse(saved) : [];
@@ -16,6 +18,20 @@ export default function App() {
       return [];
     }
   });
+
+  const handleToggleFavorite = (constructorId) => {
+    setFavorites((prev) => {
+      const updated = prev.includes(constructorId)
+        ? prev.filter((id) => id !== constructorId)
+        : [...prev, constructorId];
+      try {
+        localStorage.setItem('f1_favorite_constructors', JSON.stringify(updated));
+      } catch {
+        // Fallback for private browsing
+      }
+      return updated;
+    });
+  };
 
   const loadConstructors = () => {
     setIsLoading(true);
@@ -35,7 +51,6 @@ export default function App() {
 
   useEffect(() => {
     let ignore = false;
-    // Initial fetch on mount
     fetchConstructors(45)
       .then((data) => {
         if (!ignore) setConstructors(data);
@@ -64,14 +79,23 @@ export default function App() {
         )}
 
         {!isLoading && !error && (
-          <section className="app-preview-state">
+          <section className="master-content-section">
             <div className="status-banner">
               <span className="telemetry-dot"></span>
               <span>Loaded {constructors.length} Formula 1 Constructors from Jolpica API</span>
             </div>
+
+            <ConstructorList
+              constructors={constructors}
+              selectedConstructor={selectedConstructor}
+              onSelectConstructor={setSelectedConstructor}
+              favorites={favorites}
+              onToggleFavorite={handleToggleFavorite}
+            />
           </section>
         )}
       </main>
     </div>
   );
 }
+

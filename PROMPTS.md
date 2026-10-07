@@ -19,3 +19,7 @@
 
 > ביצוע משימה 3: הקמת מעטפת האפליקציה (App.jsx), רכיבי Header, LoadingSpinner, ErrorMessage וניהול State מלא לשלושת מצבי הממשק (טעינה, שגיאה, מידע) עם עיצוב F1 Dark רספונסיבי.
 
+**20:36 · antigravity**
+
+> ביצוע משימה 4: מימוש תצוגת Master — יצירת רכיבי ConstructorList ו-ConstructorCard עם תמיכה בבחירה, סימון מועדפים, מפתחות key יציבים, וגריד רספונסיבי בעיצוב F1.
+
